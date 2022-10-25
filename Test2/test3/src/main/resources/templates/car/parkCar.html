@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Park Car</title>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</head>
+<body>
+
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Marka</th>
+    <th>Model</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td th:text="${car.getId()}"></td>
+    <td th:text="${car.getBrand()}"></td>
+    <td th:text="${car.getModel()}"></td>
+
+  </tr>
+  </tbody>
+</table>
+
+<label>Parkingi:</label><br>
+<select id="parkingSelect" name="parkingId">
+  <option value="" disabled selected>Wybierz parking</option>
+  <option th:each="parking : ${parkings}" th:text="${parking.getName()}" th:value="${parking.getId()}"></option>
+</select>
+<br>
+<br>
+<button th:value="${car.getId()}"  id="button" type="submit" onclick="parkCar(this.id, 'parkingSelect')">DODAJ</button>
+<br>
+<br>
+<br>
+<br>
+<button><a th:href="'/cars'">Go to cars list</a></button><br>
+<button><a th:href="'/parkings'">Go to parkings list</a></button>
+</body>
+</html>
+
+<script type="text/javascript">
+
+  function parkCar(carId, parkingSelect) {
+    let parking = document.getElementById(parkingSelect);
+    let car = document.getElementById(carId);
+    let url = "/cars/park?carId=" + car.value + "&parkingId=" + parking.value;
+    $.ajax({
+      url: url,
+      type: 'POST',
+      success: function (){
+        window.location.href = "/cars";
+      },
+      error: function (){
+        alert("Ten parking jest pełny");
+      }
+    })
+
+  }
+
+</script>
