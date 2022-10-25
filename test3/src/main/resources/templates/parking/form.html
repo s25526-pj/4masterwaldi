@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Parking create form</title>
+</head>
+<body>
+<h1>Dodaj parking</h1>
+
+<form method="post" action="/parkings/create">
+
+    <input name="name" type="text" placeholder="Nazwa"/><br>
+    <input name="city" type="text" placeholder="Miasto"/><br>
+    <input name="capacity" type="number" placeholder="Pojemność"/><br>
+    <br>
+    <button type="submit">Dodaj</button>
+
+</form>
+<br>
+<br>
+<button><a th:href="'/cars'">Go to cars list</a></button><br>
+<button><a th:href="'/parkings'">Go to parkings list</a></button>
+
+</body>
+</html>

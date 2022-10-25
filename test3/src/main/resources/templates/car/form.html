@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Car create form</title>
+</head>
+<body>
+<h1>Dodaj samochód</h1>
+
+<form method="post" action="/cars/create">
+
+    <input name="brand" type="text" placeholder="Marka"/><br>
+    <input name="model" type="text" placeholder="Model"/><br>
+    <br>
+    <button type="submit">Dodaj</button>
+
+</form>
+
+<br>
+<br>
+<button><a th:href="'/cars'">Go to cars list</a></button><br>
+<button><a th:href="'/parkings'">Go to parkings list</a></button>
+
+</body>
+</html>

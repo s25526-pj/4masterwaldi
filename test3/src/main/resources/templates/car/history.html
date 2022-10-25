@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Car Parking History</title>
+</head>
+<body>
+
+<h1>Historia Parkowania</h1>
+<br>
+<br>
+<table>
+    <thead>
+    <tr>
+        <th>Marka</th>
+        <th>Model</th>
+    </tr>
+    </thead>
+    <tbody>
+    <td th:text="${car.getBrand()}"></td>
+    <td th:text="${car.getModel()}"></td>
+    </tbody>
+</table>
+<br>
+<br>
+<table>
+    <thead>
+    <tr>
+        <th>Parking</th>
+        <th>Data przyjazdu</th>
+        <th>Data wyjazdu</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="ticket : ${tickets}">
+        <td th:text="${ticket.getParking()}"></td>
+        <td th:text="${ticket.getArrival()}"></td>
+        <td th:text="${ticket.getLeaving()}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<br>
+<br>
+<button><a th:href="'/cars'">Go to cars list</a></button><br>
+<button><a th:href="'/parkings'">Go to parkings list</a></button>
+</body>
+</html>

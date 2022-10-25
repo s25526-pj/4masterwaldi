@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Car list</title>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+<h1>Samochody</h1>
+<br>
+<br>
+<h2><a href="/cars/create">Dodaj samochód</a></h2>
+
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Marka</th>
+    <th>Model</th>
+    <th>Zaparkowany na:</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="car : ${cars}">
+    <td th:text="${car.getId()}"></td>
+    <td th:text="${car.getBrand()}"></td>
+    <td th:text="${car.getModel()}"></td>
+    <td th:text="${car.getParking()}"></td>
+    <td><button> <a th:href="'/cars/park?carId=' + ${car.getId()}" >Park Car</a></button></td>
+    <td><button th:value="${car.getId()}" th:id="leavingButton + ${car.getId()}" onclick="leaveParking(this.id)" >Leave Parking</button></td>
+    <td><button> <a th:href="'/cars/history?carId=' + ${car.getId()}" >Get History</a></button></td>
+
+  </tr>
+  </tbody>
+</table>
+
+<br>
+<br>
+<button><a th:href="'/parkings'">Go to parkings list</a></button>
+</body>
+</html>
+
+<script type="text/javascript">
+
+  function leaveParking(buttonId) {
+    let button = document.getElementById(buttonId);
+    let url = "/cars/leaveParking?carId=" + button.value;
+    $.ajax({
+      url: url,
+      type: 'PUT',
+      success: function (){
+        window.location.href = "/cars";
+      },
+      error: function (){
+        alert("Ten samochód nie jest nigdzie zaparkowany");
+      }
+    })
+  }
+
+</script>

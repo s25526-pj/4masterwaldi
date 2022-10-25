@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Parking list</title>
+</head>
+<body>
+<h1>Parkingi</h1>
+<br>
+<br>
+<h2><a href="/parkings/create">Dodaj parking</a></h2>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nazwa</th>
+        <th>Miasto</th>
+        <th>Pojemność</th>
+        <th>Wolne Miejsca</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="parking : ${parkings}">
+        <td th:text="${parking.getId()}"></td>
+        <td th:text="${parking.getName()}"></td>
+        <td th:text="${parking.getCity()}"></td>
+        <td th:text="${parking.getCapacity()}"></td>
+        <td th:text="${parking.getNumberOfFreePlaces()}"></td>
+        <td><button><a th:href="'/parkings/history?parkingId=' + ${parking.getId()}">Get History</a></button></td>
+    </tr>
+    </tbody>
+</table>
+
+<br><br>
+<button><a th:href="'/cars'">Go to cars list</a></button>
+
+</body>
+</html>
