@@ -7,6 +7,7 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import java.util.List;
+import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,10 +25,10 @@ public class Parking {
     private int capacity;
 
     @OneToMany(mappedBy = "parking")
-    private List<Car> cars;
+    private Set<Car> cars;
 
     @OneToMany(mappedBy = "parking")
-    private List<Ticket> tickets;
+    private Set<Ticket> tickets;
 
     public int getNumberOfFreePlaces() {
         return capacity - cars.size();

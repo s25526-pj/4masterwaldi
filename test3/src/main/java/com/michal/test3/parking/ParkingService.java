@@ -22,6 +22,11 @@ public class ParkingService {
                 .orElseThrow(() -> new EntityNotFoundException("Parking id=" + id + " not found"));
     }
 
+    public Parking findWithLockingById(int id) {
+        return parkingRepository.findWithLockingById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Parking id=" + id + " not found"));
+    }
+
     public Parking save(Parking parking) {
         return parkingRepository.save(parking);
     }

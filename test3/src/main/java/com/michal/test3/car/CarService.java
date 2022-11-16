@@ -33,13 +33,19 @@ public class CarService {
                 .orElseThrow(() -> new EntityNotFoundException("Car id=" + id + " not found"));
     }
 
+    public Car findWithLockingById(int id) {
+        return carRepository.findWithLockingById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Car id=" + id + " not found"));
+    }
+
     public Car save(Car car) {
         return carRepository.save(car);
     }
 
+    @Transactional
     public void park(int carId, int parkingId) {
-        Car car = findById(carId);
-        Parking parking = parkingService.findById(parkingId);
+        Car car = findWithLockingById(carId);
+        Parking parking = parkingService.findWithLockingById(parkingId);
         if (car.getParking() != null) {
             throw new CarException("This car is allready parked");
         }

@@ -3,6 +3,7 @@ package com.michal.test3.car;
 import com.michal.test3.car.model.Car;
 import com.michal.test3.parking.ParkingService;
 import com.michal.test3.ticket.TicketRepository;
+import com.michal.test3.ticket.TicketService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +17,9 @@ public class CarController {
     private final CarService carService;
     private final ParkingService parkingService;
 
-    private final TicketRepository ticketRepository;
+    private final TicketService ticketService;
+
+
 
     @GetMapping
     public String getCars(Model model) {
@@ -60,7 +63,7 @@ public class CarController {
     @GetMapping(value = "/history", params = {"carId"})
     public String getHistory(@RequestParam("carId") int carId, Model model) {
         model.addAttribute("car", carService.findById(carId));
-        model.addAttribute("tickets", ticketRepository.findAllByCarId(carId));
+        model.addAttribute("tickets", ticketService.findAllByCarId(carId));
         return "car/history";
     }
 

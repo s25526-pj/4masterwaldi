@@ -8,12 +8,21 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class TicketService {
 
     private final TicketRepository ticketRepository;
+
+    public List<Ticket> findAllByCarId(int carId) {
+        return ticketRepository.findAllByCarId(carId);
+    }
+
+    public List<Ticket> findAllByParkingId(int parkingId) {
+        return ticketRepository.findAllByParkingId(parkingId);
+    }
 
     public Ticket save(Car car, Parking parking) {
         Ticket ticket = Ticket.builder()

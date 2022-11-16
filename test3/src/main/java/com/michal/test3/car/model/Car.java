@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -29,7 +30,7 @@ public class Car {
     private Parking parking;
 
     @OneToMany(mappedBy = "car")
-    private List<Ticket> tickets;
+    private Set<Ticket> tickets;
 
     public void addTicket(Ticket ticket) {
         tickets.add(ticket);
