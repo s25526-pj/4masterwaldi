@@ -32,8 +32,9 @@ public class VisitServiceImpl implements VisitService {
                 .orElseThrow(() -> new EntityNotFoundException("Visit id=" + id + " not found"));
     }
     @Override
-    @Transactional
     public Visit save(Visit visit, int patientId, int doctorId) {
+        Patient patient = patientService.findWithLockingById(patientId);
+        Doctor doctor = doctorService.findWithLockingById(doctorId);
         List<Visit> patientVisits = visitRepository.findAllByPatientIdAndDateBetweenAndDeletedIsFalse(patientId,
                 visit.getDate(), visit.getDate().plusMinutes(visit.getDuration()));
 
@@ -46,8 +47,6 @@ public class VisitServiceImpl implements VisitService {
         if (!doctorVisits.isEmpty()) {
             throw new DoctorUnavailableException("Doctor have scheduled visit at this time");
         }
-        Patient patient = patientService.findWithLockingById(patientId);
-        Doctor doctor = doctorService.findWithLockingById(doctorId);
         visit.setPatient(patient);
         visit.setDoctor(doctor);
         return visitRepository.save(visit);

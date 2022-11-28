@@ -18,11 +18,11 @@ public class VisitDto {
 
     private int id;
 
-    @NotNull(message = "Doctor can not be null")
-    private DoctorDto doctor;
+    @NotNull(message = "Doctor ID can not be null")
+    private int doctorId;
 
-    @NotNull(message = "Patient can not be null")
-    private PatientDto patient;
+    @NotNull(message = "Patient ID can not be null")
+    private int patientId;
 
     @Future(message = "Planned visit has to be in future")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
@@ -36,8 +36,8 @@ public class VisitDto {
     public static VisitDto fromEntity(Visit visit) {
         return VisitDto.builder()
                 .id(visit.getId())
-                .doctor(DoctorDto.fromEntity(visit.getDoctor()))
-                .patient(PatientDto.fromEntity(visit.getPatient()))
+                .doctorId(visit.getDoctor().getId())
+                .patientId(visit.getPatient().getId())
                 .date(visit.getDate())
                 .duration(visit.getDuration())
                 .build();

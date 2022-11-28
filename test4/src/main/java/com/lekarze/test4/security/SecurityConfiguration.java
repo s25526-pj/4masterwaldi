@@ -22,8 +22,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .mvcMatchers(HttpMethod.POST, BASE_URL + "/visits").permitAll()
                 .mvcMatchers(HttpMethod.GET, BASE_URL + "/visits").permitAll()
-                .mvcMatchers(HttpMethod.GET, BASE_URL + "/visits/delete/{id}").permitAll()
-                .mvcMatchers(HttpMethod.GET, BASE_URL + "/visits/confirm/{id}").permitAll()
                 .mvcMatchers(HttpMethod.POST, BASE_URL + "/doctors").permitAll()
                 .mvcMatchers(HttpMethod.GET, BASE_URL + "/doctors").permitAll()
                 .mvcMatchers(HttpMethod.DELETE, BASE_URL + "/doctors/delete/{id}").permitAll()
@@ -42,7 +40,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.inMemoryAuthentication()
                 .withUser("Doctor")
                 .password(passwordEncoder().encode("TrudneHaslo"))
-                .roles("DOCTOR");
+                .roles("DOCTOR")
+                .and()
+                .withUser("User")
+                .password(passwordEncoder().encode("JeszczeTrudniejszeHaslo"))
+                .roles("USER");
     }
 
     @Bean

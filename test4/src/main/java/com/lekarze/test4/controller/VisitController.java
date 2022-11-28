@@ -30,20 +30,22 @@ public class VisitController {
     @ResponseStatus(HttpStatus.CREATED)
     @Secured("ROLE_DOCTOR")
     public VisitDto save(@RequestBody @Valid VisitDto dto) {
-        int patientId = dto.getPatient().getId();
-        int doctorId = dto.getDoctor().getId();
+        int patientId = dto.getPatientId();
+        int doctorId = dto.getPatientId();
         Visit visit = visitService.save(dto.toEntity(), patientId, doctorId);
         return VisitDto.fromEntity(visit);
     }
 
     @GetMapping(value = "/delete/{id}")
     @ResponseStatus(HttpStatus.OK)
+    @Secured("ROLE_USER")
     public void delete(@PathVariable("id") int id) {
         visitService.delete(id);
     }
 
     @GetMapping(value = "/confirm/{id}")
     @ResponseStatus(HttpStatus.OK)
+    @Secured("ROLE_USER")
     public void confirm(@PathVariable("id") int id) {
         visitService.confirmVisit(id);
     }
